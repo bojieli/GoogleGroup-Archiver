@@ -1,13 +1,9 @@
 #!/bin/bash
 # This file should be run in crontab with sufficient permissions
 
-if [ ! -d "$1" ]; then
-    echo "The first param should be ABSOLUTE PATH to this project"
-    exit 1
-fi
-BASEDIR=$1
-TMPDIR="/tmp"
-LOGFILE="/var/log/lugmailbox.log"
+BASEDIR=$(dirname "$0")
+TMPDIR="$BASEDIR/tmp"
+LOGFILE="$BASEDIR/archiver.log"
 
 # list names of your mailing lists here, separated by comma
 LISTS="ustc_lug lug shlug"
@@ -19,6 +15,7 @@ PASSWORD=
 python $BASEDIR/getnew.py $EMAIL $PASSWORD $LISTS >> $LOGFILE 2>&1
 
 # update HTML
+mkdir -p $TMPDIR
 for l in $LISTS; do
     /usr/lib/mailman/bin/arch $l $TMPDIR/$l-delta.mbox >> $LOGFILE 2>&1
 done

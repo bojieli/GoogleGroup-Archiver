@@ -32,7 +32,8 @@ Install
 
 4. Setup Crontab
   * Modify `cron.sh` script, set variables LISTS, EMAIL and PASSWORD
-  * Add crontab to a privileged user (e.g. root) which runs cron.sh every 15 minutes.
+  * Add crontab to a user with mailman permissions (e.g. root) which runs cron.sh every 15 minutes:
+    `*/15 * * * * /absolute/path/to/cron.sh`
 
 5. Setup Web Server
   * Nginx for example:
