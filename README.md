@@ -8,13 +8,13 @@ Dependencies:
   * GNU Mailman
   * Gmail
 
-HOWTO
------
+Install
+-------
 
 1. Prepare Group Subscriber
   * Create a Gmail account (do not use a precious password)
   * Subscribe to your Google Group
-  * Create a filter that labels to:(listname@googlegroups) as "listname"
+  * Create a filter that labels "to:(listname@googlegroups)" as "listname"
 
 2. Setup Mailman
   * Install GNU Mailman
@@ -30,12 +30,11 @@ HOWTO
   * `/usr/lib/mailman/bin/arch listname mbox-file`
 
 4. Setup Crontab
-  * Modify cron.sh script, set variables LISTS, EMAIL and PASSWORD
+  * Modify `cron.sh` script, set variables LISTS, EMAIL and PASSWORD
   * Add crontab to a privileged user (e.g. root) which runs cron.sh every 15 minutes.
 
 5. Setup Web Server
-
-Nginx for example:
+  * Nginx for example:
 <code>
         location /pipermail {
                 alias /var/lib/mailman/archives/public;
@@ -46,11 +45,11 @@ Nginx for example:
 
 Modifications made to Mailman:
   * GBK handling:
-    HyperArch.py => /usr/lib/mailman/Mailman/Archiver/HyperArch.py
+    <code>HyperArch.py => /usr/lib/mailman/Mailman/Archiver/HyperArch.py</code>
   * Remove unused HTML elements:
-    template => /var/lib/mailman/templates/en/
+    <code>template => /var/lib/mailman/templates/en/</code>
 
 If you modified the templates, you have to rebuild HTMLs:
-  * /usr/lib/mailman/bin/arch --wipe listname history-mbox-file
-  * python migrate.py to convert listname-full.box (This contains all mails received by cron.sh) to mbox format
-  * /usr/lib/mailman/bin/arch listname listname-full.mbox
+  * `/usr/lib/mailman/bin/arch --wipe listname history-mbox-file`
+  * `python migrate.py` to convert `listname-full.box` (This contains all mails received by `cron.sh`) to mbox format
+  * `/usr/lib/mailman/bin/arch listname listname-full.mbox`
