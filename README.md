@@ -18,12 +18,12 @@ Install
 
 2. Setup Mailman
   * Install GNU Mailman
-  * Apply the modifications if you want (see below).
+  * Apply the patches if you like (see below).
   * Create a new list (admin mail and password do not matter):
     `/usr/lib/mailman/bin/newlist`
 
 3. Import History
-  * python migrate.py
+  * `python migrate.py`
   * choose "d" to download from YOUR Gmail account
   * choose "m" to convert box format to mbox format
   * (You can use any other E-mail client to download mbox)
@@ -42,14 +42,16 @@ Install
         }
 </code>
 
+Patch for Mailman
+-----------------
 
-Modifications made to Mailman:
+Modifications made to Mailman (modified files are given in their entirety):
   * GBK handling:
     <code>HyperArch.py => /usr/lib/mailman/Mailman/Archiver/HyperArch.py</code>
   * Remove unused HTML elements:
     <code>template => /var/lib/mailman/templates/en/</code>
 
-If you modified the templates, you have to rebuild HTMLs:
+If you modified the templates, HTMLs have to be rebuilt:
   * `/usr/lib/mailman/bin/arch --wipe listname history-mbox-file`
   * `python migrate.py` to convert `listname-full.box` (This contains all mails received by `cron.sh`) to mbox format
   * `/usr/lib/mailman/bin/arch listname listname-full.mbox`
