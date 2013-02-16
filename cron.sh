@@ -12,10 +12,10 @@ LISTS="ustc_lug lug shlug"
 EMAIL=example@gmail.com
 PASSWORD=
 
-python $BASEDIR/getnew.py $EMAIL $PASSWORD $LISTS >> $LOGFILE 2>&1
+mkdir -p $TMPDIR
+python $BASEDIR/getnew.py $EMAIL $PASSWORD $TMPDIR $LISTS >> $LOGFILE 2>&1
 
 # update HTML
-mkdir -p $TMPDIR
 for l in $LISTS; do
     /usr/lib/mailman/bin/arch $l $TMPDIR/$l-delta.mbox >> $LOGFILE 2>&1
 done

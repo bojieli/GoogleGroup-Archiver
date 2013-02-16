@@ -197,8 +197,8 @@ def makeMbox(OldMboxFileStr, NewMboxFileStr):
 if __name__ == "__main__":
     UserName = sys.argv[1]
     PassWord = sys.argv[2]
-    Labels = sys.argv[3:]
-    MboxSaveDir = "/tmp/"
+    MboxSaveDir = sys.argv[3]
+    Labels = sys.argv[4:]
     for label in Labels:
         print "Saving " + label
         DeltaMbox = MboxSaveDir + label + "-delta.box"
